@@ -27,7 +27,7 @@
 	overflow: hidden;
 }
 .mtpanel .mp-content .vcontainer{
-	min-height: 300px;
+	min-height: 450px;
 	text-align: center;
 }
 .mtpanel .mp-content .vcontainer:empty{

@@ -15,8 +15,6 @@ var _ConvertJSONDataToHighChartSeries = function(array,property,value)
 {
 	//AR: Map backend data to Highchart Series Data
 
-	console.log(array.length);
-
 	var seriesHash = {},
 		series = [];
 
