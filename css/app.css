@@ -1,0 +1,163 @@
+
+a {
+text-decoration:none;
+}
+* {
+	font-family: 'Roboto',sans-serif;
+	outline:none;
+}
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.bg {
+    background: #F1F1F1;
+}
+html{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+body{
+	font-weight:300;
+	padding:0;
+	margin:0px;
+	height: 100%;
+    width: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	-webkit-overflow-scrolling: touch;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+#notification {
+    width: 100%;
+    background-color: #ff9900;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    position: relative;
+    display: block;
+
+}
+#controls_header{
+	background-color: #ffffff;
+	height: 124px;
+	padding: 8px 8px 8px 0px;
+	border-bottom: 1px solid #dedede;
+	box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.16);
+}
+
+
+
+/*
+Control Picker
+==========================================================================================
+*/
+
+.tkcontrol{
+	display: inline-table;
+	border-spacing:0px;
+	position: relative;
+	margin-left: 10px;
+	margin-right: 1px;
+	margin-bottom: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	cursor: pointer;
+	padding: 2px 10px 6px 10px;
+	font-size: 16px;
+	text-align: center;
+	min-width: 86px;
+	border-radius: 3px;
+	background-color: #ffffff
+}
+.tkcontrol-name{
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	color: rgb(99, 99, 99);
+	text-align: center;
+	width: 100%;
+	overflow: hidden;
+	line-height: 20px;
+	height: 20px;
+}
+
+.tkcontrol-name::after{
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid #bfbfbf;
+    clear: both;
+}
+
+.tkcontrol:hover{
+	border: 1px solid #000000;
+}
+.tkpicker{
+
+}
+
+.tkpicker .tkpicker-hidden,
+.tkpicker .tkpicker-selection.tkpicker-selected,
+.tkpicker .tkpicker-current-selection{
+	font-size: 18px;
+	font-weight: 600;
+}
+.tkpicker .tkpicker-selection.tkpicker-selected{
+	padding:0px 2px 0px 2px;
+}
+.tkpicker .tkpicker-selections{
+	text-align: left;
+	display: block;
+	position: relative;
+	margin-bottom: 0px;
+}
+.tkpicker .tkpicker-selection{
+	display: block;
+	position: relative;
+	line-height: 25px;
+	font-weight: 400;
+	padding: 0px 5px 0px 8px;
+}
+.tkpicker .tkpicker-selection.tkcontrol-selected-value{
+	font-weight: 400;
+}
+.tkpicker .tkpicker-hidden{	
+	height: 0px;
+	overflow: hidden;
+	padding:0px 5px 0px 8px;
+}
+.tkpicker .tkpicker-hidden{
+	font-weight: 400;
+}
+.tkpicker .tkpicker-selection:hover{
+	font-weight: 400;
+	padding:0px 2px 0px 2px;
+}
+
+
+.tkpicker .tkpicker-selection{
+	color: rgba(90, 90, 90, 0.66);
+}
+.tkpicker .tkpicker-selection.tkcontrol-selected-value{
+	color: rgba(90, 90, 90, 0.86);
+}
+.tkpicker .tkpicker-selection:hover{
+	color: rgba(50, 50, 50, 0.96);
+}
+
+
+@media (min-width: 389px){
+	#controls_header{
+		height: 70px;
+	}
+}

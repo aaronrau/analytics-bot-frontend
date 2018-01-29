@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<link rel="apple-touch-icon" href="./images/icon/app-icon.png"/>
+	<link rel="apple-touch-icon" href="./images/icon/app-icon.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="./images/icon/app-icon.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="./images/icon/app-icon.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="./images/icon/app-icon.png">
+	<link rel="apple-touch-startup-image" href="./images/icon/app-icon.png">
+	<link rel="shortcut icon" href="./images/app-icon.png" />
+
+	<link rel="StyleSheet" href="./css/app.css" type="text/css">
+    
+ 	<script src="./scripts/require.js" type="text/javascript" ></script>
+	<script src="./scripts/app.min.js" type="text/javascript" ></script>
+
+  <title>Analytics</title>
+
+</head>
+
+
+<script>
+    //Init App
+    app.Paths({
+      host:".",
+      rest:"http://localhost:8000/"
+    });
+
+    app.Start({sections:{
+      metrics:{css:"./css/metrics.css",mods:['metrics']}
+    }},function(){
+      requirejs.config({
+        baseURL:"./",
+        paths: {
+          'highcharts': "./scripts/libs/highcharts"
+        },
+        shim:{
+          'highcharts': {
+            exports: "Highcharts"
+          }
+        }
+      });
+
+      return true;
+    });
+
+</script>
+<body class="bg">
+
+    <!-- notification area-->
+    <div id='notification'></div>
+
+    <!-- header controls-->
+    <div id='controls_header' class='controls_header'></div>
+
+    <!-- main content area-->
+    <div id="scroll_content" ></div>
+
+</body>
+
+</html>
