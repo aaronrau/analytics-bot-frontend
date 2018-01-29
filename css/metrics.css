@@ -1,7 +1,10 @@
 
+.metrics{
+	padding: 130px 10px 60px 10px;
+}
 .mtpanel {
-	display: block;
-	float: left;
+	display: inline-grid;
+	/* float: left; */
 	margin: 10px;
 	border: 1px solid #D6D6D6;
 	width: calc(100% - 20px);
@@ -24,7 +27,7 @@
 	overflow: hidden;
 }
 .mtpanel .mp-content .vcontainer{
-	min-height: 400px;
+	min-height: 300px;
 	text-align: center;
 }
 .mtpanel .mp-content .vcontainer:empty{
@@ -72,11 +75,18 @@
 	width:  100%;
 }
 
+
+
+@media (min-width: 389px){
+	.metrics{
+		padding: 80px 10px 60px 10px;
+	}
+}
 @media (min-width: 700px){
 	.mtpanel{
 		width: calc(50% - 20px);
 	}
 	.metrics{
-		padding: 10px;
+		padding: 80px 10px 60px 10px;
 	}
 }

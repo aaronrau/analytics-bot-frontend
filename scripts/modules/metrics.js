@@ -109,7 +109,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		            	},
 		            	{
 		            		"id":"2",
-		            		"title":"Unique Users Segments",
+		            		"title":"Unique User Segments",
 		            		"components":[
 		            			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"NumUniqUsers","title":"By Channel","label":"Unique Users"}},
 		            			{"type":"Graph","config":{"plot":"stacked","property":"Category","value":"NumUniqUsers","title":"By Intents","label":"Unique Users"}}
