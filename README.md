@@ -1,4 +1,7 @@
 # Bot Analytics Metric UI JS Framework
+Here's the live version: <br/>
+http://analytics-bot.m00.co.s3-website-us-west-1.amazonaws.com/
+
 This is built off of Aaron's M00 framework found here <br/>
 https://github.com/aaronrau/interactive-mockup/blob/master/README.md
 
