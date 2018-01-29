@@ -2,6 +2,16 @@
 .metrics{
 	padding: 130px 10px 60px 10px;
 }
+
+.metrics:empty{
+	text-align: center;
+	padding-top: 150px;
+	font-size: 25px;
+	color: #888888;
+}
+.metrics:empty:after{
+	content:"Metric is currently not available.";
+}
 .mtpanel {
 	display: inline-grid;
 	/* float: left; */
@@ -65,6 +75,10 @@
 	font-size: 20px;
 	font-weight: 400;
 	margin-left: -20px;
+	/* position: relative; */
+	/* top: 0px; */
+	/* width:  100%; */
+	display: block;
 }
 .mtpanel .mp-content .visual.visual-kpi .vcontainer{
 	min-height: 200px;
@@ -85,6 +99,9 @@
 @media (min-width: 700px){
 	.mtpanel{
 		width: calc(50% - 20px);
+	}
+	.mtpanel:only-child{
+		width:calc(100% - 20px)
 	}
 	.metrics{
 		padding: 80px 10px 60px 10px;

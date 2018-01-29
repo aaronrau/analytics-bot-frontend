@@ -139,16 +139,92 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		            	}
     				]);
 				}
+				else if(metric == 'active_users')
+				{
 
+					panels = _buildPanels([
+	    				{
+			                "id":"3",
+			                "title":"Total Users",
+			                "components":[
+			                	{"type":"Kpi","config":{"type":"total","value":"NumUniqUsers","label":"users"}},
+			                	{"type":"Pie","config":{"property":"BotChannel","value":"NumUniqUsers","title":"Channel"}},
+			                	{"type":"Pie","config":{"property":"Category","value":"NumUniqUsers","title":"Activities"}}
+			                ]
+		            	},
+		            	{
+		            		"id":"4",
+		            		"title":"Sessions Length (Minutes)",
+		            		"components":[
+		            			{"type":"Kpi","config":{"type":"avg","value":"AvgResponseTime","count":"NumUniqUsers","label":"minutes"}},
+		            			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"AvgResponseTime","title":"By Channel","label":"Minutes"}},
+		            			{"type":"Graph","config":{"plot":"column","property":"Category","value":"AvgResponseTime","title":"By Most Active Activities","label":"Minutes","include":{"Track Order":true}}}
+		            			//{"type":"Graph","config":{"plot":"column","property":"Category","value":"AvgResponseTime","title":"By Least Active Activities","label":"Minutes"}},
+		            		]
+		            	}
+    				]);
+				}
+				else if(metric == 'message_sent')
+				{
+
+					panels = _buildPanels([
+	    				{
+			                "id":"3",
+			                "title":"Total Messages",
+			                "components":[
+			                	{"type":"Kpi","config":{"type":"total","value":"NumMessages","label":"msgs"}},
+			                	//{"type":"Pie","config":{"property":"BotChannel","value":"NumMessages","title":"Channel"}},
+			        			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"NumMessages","title":"By Channel","label":"Messages"}},
+		        				{"type":"Pie","config":{"property":"Category","value":"NumMessages","title":"By Activities"}},
+		            			{"type":"Graph","config":{"plot":"stacked","property":"Category","value":"NumMessages","title":"By Most Active Activities","label":"Messages","include":{"Track Order":true,"Not Defined":true}}},
+		            			{"type":"Graph","config":{"plot":"stacked","property":"Category","value":"NumMessages","title":"By Least Active Activities","label":"Messages","exclude":{"Track Order":true,"Not Defined":true}}}
+		         
+
+			                ]
+		            	}
+    				]);
+				}
 
 	    		return panels;
 			},
+
 			//Custom functions
 			init:function(params,onStart){
 
 				//AR: Hard code this for now we can dynamically generated or update the options later
 	    		var filterControls = _buildFilterControls([
 								{
+					                "layout" : "overview",
+					                "name" : "Metrics",
+					                "default" : "active_users",
+					                "data":{
+					                		"selected":"active_users",
+					                		"values" : [ 
+							                    "active_users", 
+							                    "message_sent",
+							                    "most_active_act",
+							                    "least_active_act",
+							                    "order_issues",
+							                    "user_loyalty",
+							                    "user_interests",
+							                    "lftv",
+							                    "demographics",
+							                    "geo"
+							                ],
+							                "valueDescriptions" : {
+							                	"active_users":"Active Users",
+							                	"message_sent":"Messages Sent & Received",
+							                	"most_active_act":"Most Active Activities",
+												"least_active_act":"Least Active Activities",
+												"order_issues":"Order Issues",
+												"user_loyalty":"User Loyalty",
+							                	"user_interests":"User Interests",
+							                	"lftv":"Lifetime Value",
+							                	"demographics":"Demographics",	
+							                	"geo":"Geography"					                	
+							                }}
+				            	},
+								/*{
 					                "layout" : "overview",
 					                "name" : "Metrics",
 					                "default" : "intents",
@@ -160,9 +236,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 							                ],
 							                "valueDescriptions" : {
 							                	"intents":"All Intents",
-							                	"longest_intents":"Respone times"
+							                	"longest_intents":"Respone times",						                	
 							                }}
-				            	},
+				            	},*/
 				            	{
 					                "layout" : "overview",
 					                "name" : "Timeframe",

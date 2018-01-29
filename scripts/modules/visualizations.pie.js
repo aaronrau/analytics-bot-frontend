@@ -65,7 +65,7 @@ return function(params){
 			        type: 'pie'
 			    },
 			    tooltip: {
-			        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			        pointFormat: '{point.y:.0f} <b>({point.percentage:.1f}%) </b>'
 			    },
 			    plotOptions: {
 			        pie: {

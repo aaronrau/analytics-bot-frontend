@@ -8,10 +8,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 define(['highcharts'],function(Highcharts) {
 
+Highcharts.setOptions({
+  global: {
+    useUTC: false
+  }
+});
 
 //https://blog.emilecantin.com/web/highcharts/2014/10/26/highcharts-datetime-series.html
 
-var _ConvertJSONDataToHighChartSeries = function(array,property,value)
+var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,exclude)
 {
 	//AR: Map backend data to Highchart Series Data
 
@@ -22,11 +27,31 @@ var _ConvertJSONDataToHighChartSeries = function(array,property,value)
 	{
 		var r = array[i];
 
-		if(!seriesHash[r[property]]){
-			seriesHash[r[property]] = []
+		if(include)
+		{
+			if(!include[r[property]])
+				continue;			
+		}
+		if(exclude)
+		{
+			if(exclude[r[property]])
+				continue;			
 		}
 
-		seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);		
+		if(!seriesHash[r[property]]){
+			seriesHash[r[property]] = []
+			seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);
+		}
+
+		if(seriesHash[r[property]][seriesHash[r[property]].length - 1][0] == new Date(r.Date).getTime())
+		{
+			seriesHash[r[property]][seriesHash[r[property]].length - 1][1] += r[value];
+		}
+		else
+		{
+			seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);
+		}
+
 	}
 
 	for(var n in seriesHash)
@@ -74,6 +99,7 @@ return function(params){
 					gridLineColor: 'transparent',
 					minorTickLength: 0,
 					tickLength: 0,
+					minTickInterval:1000*60*60*24, //day
 			        type: 'datetime',
 			        dateTimeLabelFormats: { // don't display the dummy year
 			            month: '%e. %b',
@@ -94,7 +120,10 @@ return function(params){
 			            text:_params.label
 			        }
 			    },
-				series:_ConvertJSONDataToHighChartSeries(value.data,_params.property,_params.value)
+				series:_ConvertJSONDataToHighChartSeries(value.data,_params.property,_params.value,_params.include,_params.exclude),
+				tooltip: {
+			        pointFormat: "Value: {point.y:.2f}"
+			    }
 			}
 
 			if(_params.plot == 'stacked')
@@ -109,11 +138,32 @@ return function(params){
 		        	type:"column"
 		        }
 			}
+			else if(_params.plot == 'column')
+			{
+
+		        options.chart = {
+		        	type:"column"
+		        }
+
+				// options.yAxis.type =  'logarithmic';
+				// options.yAxis.minorTickInterval =  0.1;
+				
+		  //       options.plotOptions =  {
+		  //       	column:{
+		  //               pointWidth:15,
+		  //           }	
+				// }
+			}
 			else
 			{
 				options.chart = {
 					type:"line"
 				}	
+				
+				options.yAxis.type =  'logarithmic';
+				options.yAxis.minorTickInterval =  0.1;
+				
+
 			}
 
 			_chart = new Highcharts.chart(_container,options);

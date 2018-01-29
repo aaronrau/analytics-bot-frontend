@@ -59,6 +59,32 @@ return function(params){
 
 				_container.innerHTML = numberWithCommas(t)+' <span class="label">'+_params.label+'</span>';//abbreviateNumber(t);
 			}
+			else if(_params.type == "avg")
+			{
+				var t = 0,
+					cnt = value.data.length;
+
+				var avg = 0
+
+				for(var i = 0; i < value.data.length; i++)
+				{
+					
+					if(_params.count)
+					{
+						t += (value.data[i][_params.value] * value.data[i][_params.count]);
+				
+						cnt += value.data[i][_params.count];
+					}
+					else
+					{
+						t += value.data[i][_params.value];
+					}
+				}
+
+				t = parseInt((parseFloat(t / cnt))*100)/100;
+
+				_container.innerHTML = t+' <span class="label">'+_params.label+'</span>';//abbreviateNumber(t);
+			}
 			else
 			{
 				_container.innerHTML = "N/A";
