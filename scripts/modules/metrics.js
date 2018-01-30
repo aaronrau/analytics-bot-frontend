@@ -158,7 +158,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		            		"components":[
 		            			{"type":"Kpi","config":{"type":"avg","value":"AvgResponseTime","count":"NumUniqUsers","label":"minutes"}},
 		            			{"type":"Graph","config":{"plot":"line","property":"BotChannel","value":"AvgResponseTime","avgWeightProp":"NumUniqUsers","title":"By Channel","label":"Avg Response Time (minutes)"}},
-		            			{"type":"Graph","config":{"plot":"line","property":"Category","value":"AvgResponseTime","avgWeightProp":"NumUniqUsers","title":"By Top 2 Activities","label":"Avg Response Time (minutes)","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":false,"Offers & Deals Question":false}}}
+		            			{"type":"Graph","config":{"plot":"line","property":"Category","value":"AvgResponseTime","avgWeightProp":"NumUniqUsers","title":"Top Activities","label":"Avg Response Time (minutes)","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":false,"Offers & Deals Question":false}}}
 		            			//{"type":"Graph","config":{"plot":"column","property":"Category","value":"AvgResponseTime","title":"By Least Active Activities","label":"Minutes"}},
 		            		]
 		            	}
