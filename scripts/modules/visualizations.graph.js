@@ -11,7 +11,7 @@ define(['highcharts'],function(Highcharts) {
 
 Highcharts.setOptions({
   global: {
-    useUTC: false
+    useUTC: true
   }
 });
 
@@ -43,27 +43,37 @@ var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,ex
 		
 		if(!seriesHash[r[property]]){
 			seriesHash[r[property]] = [];
+		}
+
+		if(!avgWeightProp)
+		{
 			seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);
 		}
 
-
-		if(avgWeightProp && !avgWeightSeries[r.Date])
+		if(avgWeightProp && !avgWeightSeries[r[property]])
 		{
-			avgWeightSeries[r.Date] = {v:r[value],w:r[avgWeightProp]}
+			avgWeightSeries[r[property]] = {};
 		}
 
-		if(avgWeightProp && seriesHash[r[property]][seriesHash[r[property]].length - 1][0] == new Date(r.Date).getTime())
+		if(avgWeightProp && !avgWeightSeries[r[property]][r.Date])
 		{
-			if(!avgWeightSeries[r.Date])
-				console.log(r);
+			avgWeightSeries[r[property]][r.Date] = {v:0,w:0};
+			seriesHash[r[property]].push([new Date(r.Date).getTime(),0]);
+		}
+		
 
-			var cnt = (r[avgWeightProp]+avgWeightSeries[r.Date].w);
-				avg = (r[avgWeightProp]*r[value] + avgWeightSeries[r.Date].v*avgWeightSeries[r.Date].w)/cnt;
+		if(avgWeightProp)
+		{
+			
+			var cnt = (r[avgWeightProp]+avgWeightSeries[r[property]][r.Date].w);
+				avg = (r[avgWeightProp]*r[value] + avgWeightSeries[r[property]][r.Date].v*avgWeightSeries[r[property]][r.Date].w)/cnt;
 
-			avgWeightSeries[r.Date].v = avg;
-			avgWeightSeries[r.Date].w = cnt;
+			//console.log(r.Date+' '+cnt + ' '+avg)
+			avgWeightSeries[r[property]][r.Date].v = avg;
+			avgWeightSeries[r[property]][r.Date].w = cnt;
 
 			seriesHash[r[property]][seriesHash[r[property]].length - 1][1] = avg;
+			
 		}
 		else if(seriesHash[r[property]][seriesHash[r[property]].length - 1][0] == new Date(r.Date).getTime())
 		{
