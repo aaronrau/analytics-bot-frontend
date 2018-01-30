@@ -8,7 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 define(['highcharts'],function(Highcharts) {
 
-var _ConvertJSONDataToHighChartPieSeries = function(array,property,value)
+var _ConvertJSONDataToHighChartPieSeries = function(array,property,value,include,exclude)
 {
 	//AR: Map backend data to Highchart Series Data
 	var seriesHash = {},
@@ -17,6 +17,17 @@ var _ConvertJSONDataToHighChartPieSeries = function(array,property,value)
 	for(var i = 0; i < array.length; i++)
 	{
 		var r = array[i];
+
+		if(include)
+		{
+			if(!include[r[property]])
+				continue;			
+		}
+		if(exclude)
+		{
+			if(exclude[r[property]])
+				continue;			
+		}
 
 		if(!seriesHash[r[property]])
 			seriesHash[r[property]] = 0;
@@ -81,7 +92,7 @@ return function(params){
 			        }
 			    },
 				title:{text:_params.title},
-				series:[{name:"",colorByPoint:true,data:_ConvertJSONDataToHighChartPieSeries(value.data,_params.property,_params.value)}]
+				series:[{name:"",colorByPoint:true,data:_ConvertJSONDataToHighChartPieSeries(value.data,_params.property,_params.value,_params.include,_params.exclude)}]
 			}
 
 			_chart = new Highcharts.chart(_container,options);

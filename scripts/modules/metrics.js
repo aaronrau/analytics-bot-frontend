@@ -154,7 +154,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		            	},
 		            	{
 		            		"id":"4",
-		            		"title":"Sessions Length (Minutes)",
+		            		"title":"Session Lengths (Minutes)",
 		            		"components":[
 		            			{"type":"Kpi","config":{"type":"avg","value":"AvgResponseTime","count":"NumUniqUsers","label":"minutes"}},
 		            			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"AvgResponseTime","title":"By Channel","label":"Minutes"}},
@@ -175,12 +175,32 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 			                	{"type":"Kpi","config":{"type":"total","value":"NumMessages","label":"msgs"}},
 			                	//{"type":"Pie","config":{"property":"BotChannel","value":"NumMessages","title":"Channel"}},
 			        			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"NumMessages","title":"By Channel","label":"Messages"}},
-		        				{"type":"Pie","config":{"property":"Category","value":"NumMessages","title":"By Activities"}},
-		            			{"type":"Graph","config":{"plot":"stacked","property":"Category","value":"NumMessages","title":"By Most Active Activities","label":"Messages","include":{"Track Order":true,"Not Defined":true}}},
-		            			{"type":"Graph","config":{"plot":"stacked","property":"Category","value":"NumMessages","title":"By Least Active Activities","label":"Messages","exclude":{"Track Order":true,"Not Defined":true}}}
+		        				//{"type":"Pie","config":{"property":"Category","value":"NumMessages","title":"By Activities"}},
+		            			{"type":"Graph","config":{"plot":"stacked","isLogarithmic":true,"property":"Category","value":"NumMessages","title":"By Top ~90% of All Activities","label":"Messages","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}},
+		            			{"type":"Graph","config":{"plot":"stacked","isLogarithmic":true,"property":"Category","value":"NumMessages","title":"Bottom ~10% of All Activities","label":"Messages","exclude":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}}
 		         
 
 			                ]
+		            	}
+    				]);
+				}
+				else if(metric == 'activities')
+				{
+
+					panels = _buildPanels([
+	    				{
+			                "id":"3",
+			                "title":"Top ~90% of All Activities",
+			                "components":[
+			                	{"type":"Pie","config":{"property":"Category","value":"NumMessages","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}}
+			                ]
+		            	},
+		            	{
+		            		"id":"4",
+		            		"title":"Bottom ~10% of All Activities",
+		            		"components":[
+		            			{"type":"Pie","config":{"property":"Category","value":"NumMessages","exclude":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}}
+		            		]
 		            	}
     				]);
 				}
@@ -202,8 +222,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 					                		"values" : [ 
 							                    "active_users", 
 							                    "message_sent",
-							                    "most_active_act",
-							                    "least_active_act",
+							                    "activities",
 							                    "order_issues",
 							                    "user_loyalty",
 							                    "user_interests",
@@ -212,10 +231,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 							                    "geo"
 							                ],
 							                "valueDescriptions" : {
+							                	"activities":"Top Activities",
 							                	"active_users":"Active Users",
 							                	"message_sent":"Messages Sent & Received",
-							                	"most_active_act":"Most Active Activities",
-												"least_active_act":"Least Active Activities",
 												"order_issues":"Order Issues",
 												"user_loyalty":"User Loyalty",
 							                	"user_interests":"User Interests",

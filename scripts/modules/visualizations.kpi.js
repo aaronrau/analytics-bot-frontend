@@ -47,7 +47,7 @@ return function(params){
 	_this.handle = function(type,value,reference){
 
 
-		if(type == "onupdate")
+		if(type == "onupdate" && value)
 		{
 			if(_params.type == "total")
 			{

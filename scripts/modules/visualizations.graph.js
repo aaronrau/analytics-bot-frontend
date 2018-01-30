@@ -110,12 +110,6 @@ return function(params){
 			        }
 		        },
 		        yAxis: {
-		        	lineWidth: 0,
-					minorGridLineWidth: 0,
-					lineColor: 'transparent',
-					gridLineColor: 'transparent',
-					minorTickLength: 0,
-					tickLength: 0,
 			        title: {
 			            text:_params.label
 			        }
@@ -126,7 +120,19 @@ return function(params){
 			    }
 			}
 
-			if(_params.plot == 'stacked')
+			if(_params.isLogarithmic)
+			{
+				options.yAxis.type = 'logarithmic';
+			}
+
+			if(value.query.timeframe == 'today')
+			{
+		        options.chart = {
+		        	type:"column"
+		        }
+		        options.xAxis.title.text = "Today";
+			}
+			else if(_params.plot == 'stacked')
 			{
 				options.plotOptions = {
 		            series: {
