@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 define(['highcharts'],function(Highcharts) {
 
+
 Highcharts.setOptions({
   global: {
     useUTC: false
@@ -16,11 +17,12 @@ Highcharts.setOptions({
 
 //https://blog.emilecantin.com/web/highcharts/2014/10/26/highcharts-datetime-series.html
 
-var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,exclude)
+var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,exclude,avgWeightProp)
 {
 	//AR: Map backend data to Highchart Series Data
 
 	var seriesHash = {},
+		avgWeightSeries = {}, //used to calculate weighted average
 		series = [];
 
 	for(var i = 0; i < array.length; i++)
@@ -37,13 +39,33 @@ var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,ex
 			if(exclude[r[property]])
 				continue;			
 		}
-
+		try{
+		
 		if(!seriesHash[r[property]]){
-			seriesHash[r[property]] = []
+			seriesHash[r[property]] = [];
 			seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);
 		}
 
-		if(seriesHash[r[property]][seriesHash[r[property]].length - 1][0] == new Date(r.Date).getTime())
+
+		if(avgWeightProp && !avgWeightSeries[r.Date])
+		{
+			avgWeightSeries[r.Date] = {v:r[value],w:r[avgWeightProp]}
+		}
+
+		if(avgWeightProp && seriesHash[r[property]][seriesHash[r[property]].length - 1][0] == new Date(r.Date).getTime())
+		{
+			if(!avgWeightSeries[r.Date])
+				console.log(r);
+
+			var cnt = (r[avgWeightProp]+avgWeightSeries[r.Date].w);
+				avg = (r[avgWeightProp]*r[value] + avgWeightSeries[r.Date].v*avgWeightSeries[r.Date].w)/cnt;
+
+			avgWeightSeries[r.Date].v = avg;
+			avgWeightSeries[r.Date].w = cnt;
+
+			seriesHash[r[property]][seriesHash[r[property]].length - 1][1] = avg;
+		}
+		else if(seriesHash[r[property]][seriesHash[r[property]].length - 1][0] == new Date(r.Date).getTime())
 		{
 			seriesHash[r[property]][seriesHash[r[property]].length - 1][1] += r[value];
 		}
@@ -51,6 +73,10 @@ var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,ex
 		{
 			seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);
 		}
+		}catch(ex){
+			console.log(ex)
+		}
+		
 
 	}
 
@@ -114,9 +140,14 @@ return function(params){
 			            text:_params.label
 			        }
 			    },
-				series:_ConvertJSONDataToHighChartSeries(value.data,_params.property,_params.value,_params.include,_params.exclude),
+				series:_ConvertJSONDataToHighChartSeries(value.data,
+														_params.property,
+														_params.value,
+														_params.include,
+														_params.exclude,
+														_params.avgWeightProp),
 				tooltip: {
-			        pointFormat: "Value: {point.y:.2f}"
+			        pointFormat: "{point.y:.2f}"
 			    }
 			}
 
@@ -163,11 +194,10 @@ return function(params){
 			else
 			{
 				options.chart = {
-					type:"line"
+					type:"column"
 				}	
 				
-				options.yAxis.type =  'logarithmic';
-				options.yAxis.minorTickInterval =  0.1;
+				
 				
 
 			}

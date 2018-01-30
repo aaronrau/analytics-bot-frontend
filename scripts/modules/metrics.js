@@ -154,11 +154,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		            	},
 		            	{
 		            		"id":"4",
-		            		"title":"Session Lengths (Minutes)",
+		            		"title":"Avg Session Length (Minutes)",
 		            		"components":[
 		            			{"type":"Kpi","config":{"type":"avg","value":"AvgResponseTime","count":"NumUniqUsers","label":"minutes"}},
-		            			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"AvgResponseTime","title":"By Channel","label":"Minutes"}},
-		            			{"type":"Graph","config":{"plot":"column","property":"Category","value":"AvgResponseTime","title":"By Most Active Activities","label":"Minutes","include":{"Track Order":true}}}
+		            			{"type":"Graph","config":{"plot":"line","property":"BotChannel","value":"AvgResponseTime","avgWeightProp":"NumUniqUsers","title":"By Channel","label":"Avg Response Time (minutes)"}},
+		            			{"type":"Graph","config":{"plot":"line","property":"Category","value":"AvgResponseTime","avgWeightProp":"NumUniqUsers","title":"By Top 2 Activities","label":"Avg Response Time (minutes)","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":false,"Offers & Deals Question":false}}}
 		            			//{"type":"Graph","config":{"plot":"column","property":"Category","value":"AvgResponseTime","title":"By Least Active Activities","label":"Minutes"}},
 		            		]
 		            	}
@@ -174,10 +174,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 			                "components":[
 			                	{"type":"Kpi","config":{"type":"total","value":"NumMessages","label":"msgs"}},
 			                	//{"type":"Pie","config":{"property":"BotChannel","value":"NumMessages","title":"Channel"}},
-			        			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"NumMessages","title":"By Channel","label":"Messages"}},
+			        			{"type":"Graph","config":{"plot":"stacked","property":"BotChannel","value":"NumMessages","title":"By Channel","label":"# of Messages"}},
 		        				//{"type":"Pie","config":{"property":"Category","value":"NumMessages","title":"By Activities"}},
-		            			{"type":"Graph","config":{"plot":"stacked","isLogarithmic":true,"property":"Category","value":"NumMessages","title":"By Top ~90% of All Activities","label":"Messages","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}},
-		            			{"type":"Graph","config":{"plot":"stacked","isLogarithmic":true,"property":"Category","value":"NumMessages","title":"Bottom ~10% of All Activities","label":"Messages","exclude":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}}
+		            			{"type":"Graph","config":{"plot":"stacked","isLogarithmic":true,"property":"Category","value":"NumMessages","title":"By Top ~90% of All Activities","label":"# of messages","include":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}},
+		            			{"type":"Graph","config":{"plot":"stacked","property":"Category","value":"NumMessages","title":"Bottom ~10% of All Activities","label":"# of messages","exclude":{"Track Order":true,"Not Defined":true,"Live Agent Request":true,"Offers & Deals Question":true}}}
 		         
 
 			                ]
