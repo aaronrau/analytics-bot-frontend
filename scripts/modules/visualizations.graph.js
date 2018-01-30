@@ -45,9 +45,9 @@ var _ConvertJSONDataToHighChartSeries = function(array,property,value,include,ex
 			seriesHash[r[property]] = [];
 		}
 
-		if(!avgWeightProp)
+		if(!avgWeightProp && seriesHash[r[property]].length == 0)
 		{
-			seriesHash[r[property]].push([new Date(r.Date).getTime(),r[value]]);
+			seriesHash[r[property]].push([new Date(r.Date).getTime(),0]);
 		}
 
 		if(avgWeightProp && !avgWeightSeries[r[property]])
