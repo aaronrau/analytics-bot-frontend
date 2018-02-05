@@ -95,7 +95,10 @@ Files & Directories
 ---------------
 The following files & directories are associated with the m00 framework.
 ### /index.html 
-Index.html contains the endpoint to the production or local backend service. You will find the follow declarion in index.html.
+https://github.com/aaronrau/analytics-bot-frontend/blob/master/index.html
+<br/>
+<br/>
+Index.html contains the endpoint to the production or local backend service. You will find the follow in index.html.
 
 ```javascript
 
@@ -112,6 +115,8 @@ Index.html contains the endpoint to the production or local backend service. You
 
 
 ### /scripts/sections/*
+https://github.com/aaronrau/analytics-bot-frontend/tree/master/scripts/sections
+<br/><br/>
 *.js files in this folder are treated as views. Depending on how the system is configured, URL parameters and/or paths can execute the corresponding .js file. For example "/metrics " can load the /scripts/sections/metrics.js file or defaults can be specified. For example:
 
 ```javascript
@@ -129,6 +134,8 @@ Index.html contains the endpoint to the production or local backend service. You
 ```
 
 ### /scripts/modules/* 
+https://github.com/aaronrau/analytics-bot-frontend/tree/master/scripts/modules
+<br/><br/>
 *.js file here acts as controllers, DALs and ui components. 
 
 ```javascript
